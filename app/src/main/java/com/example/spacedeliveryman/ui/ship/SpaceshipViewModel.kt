@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import com.example.spacedeliveryman.extensions.combinePair
 import com.example.spacedeliveryman.extensions.combineTriple
+import com.example.spacedeliveryman.ui.ship.models.SpaceshipScreenContinueAction
+import com.example.spacedeliveryman.ui.ship.models.SpaceshipScreenEventActions
 
 class SpaceshipViewModel : ViewModel() {
 
@@ -19,6 +21,10 @@ class SpaceshipViewModel : ViewModel() {
     private val _speedMaxValue: LiveData<Pair<Int?, Int?>>
     private val _capacityMaxValue: LiveData<Pair<Int?, Int?>>
     private val _buttonState: LiveData<Triple<Int?, Int?, Int?>>
+
+    private val _screenActions = MutableLiveData<SpaceshipScreenEventActions>()
+
+    val screenActions: LiveData<SpaceshipScreenEventActions> = _screenActions
 
     init {
         _durabilityMaxValue = shipSpeed.combinePair(shipCapacity)
@@ -42,5 +48,9 @@ class SpaceshipViewModel : ViewModel() {
         val secondValue = second ?: 0
 
         return propertyTotalValue - firstValue - secondValue
+    }
+
+    fun continueButtonClicked() {
+        _screenActions.value = SpaceshipScreenContinueAction
     }
 }

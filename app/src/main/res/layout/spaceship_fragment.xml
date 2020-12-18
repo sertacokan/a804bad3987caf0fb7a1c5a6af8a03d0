@@ -101,6 +101,7 @@
             app:propertyTitle="@{@string/capacity_property_text(viewModel.shipCapacity)}" />
 
         <com.google.android.material.button.MaterialButton
+            android:onClick="@{() -> viewModel.continueButtonClicked()}"
             android:enabled="@{viewModel.buttonState}"
             android:id="@+id/button"
             android:layout_width="0dp"

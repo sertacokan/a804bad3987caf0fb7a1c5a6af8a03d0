@@ -9,6 +9,16 @@
         tools:layout="@layout/spaceship_fragment"
         android:id="@+id/spaceshipFragment"
         android:name="com.example.spacedeliveryman.ui.ship.SpaceshipFragment"
-        android:label="SpaceshipFragment" />
+        android:label="SpaceshipFragment" >
+        <action
+            android:id="@+id/action_spaceshipFragment_to_bottomNavContainerFragment"
+            app:destination="@id/bottomNavContainerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bottomNavContainerFragment"
+        android:name="com.example.spacedeliveryman.ui.BottomNavContainerFragment"
+        android:label="fragment_bottom_nav_container"
+        tools:layout="@layout/fragment_bottom_nav_container" />
 
 </navigation>

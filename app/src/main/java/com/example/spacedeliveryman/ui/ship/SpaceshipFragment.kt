@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.spacedeliveryman.R
 import com.example.spacedeliveryman.databinding.SpaceshipFragmentBinding
 import com.example.spacedeliveryman.extensions.dataBinding
+import com.example.spacedeliveryman.ui.ship.models.SpaceshipScreenContinueAction
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SpaceshipFragment : Fragment() {
@@ -23,5 +25,14 @@ class SpaceshipFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        viewModel.screenActions.observe(viewLifecycleOwner) { screenActions ->
+            when (screenActions) {
+                SpaceshipScreenContinueAction -> {
+                    findNavController().navigate(SpaceshipFragmentDirections.actionSpaceshipFragmentToBottomNavContainerFragment())
+                }
+            }
+        }
     }
+
 }
