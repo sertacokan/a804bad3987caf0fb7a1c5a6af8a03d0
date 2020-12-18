@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/spaceshipFragment">
+
+    <fragment
+        tools:layout="@layout/spaceship_fragment"
+        android:id="@+id/spaceshipFragment"
+        android:name="com.example.spacedeliveryman.ui.ship.SpaceshipFragment"
+        android:label="SpaceshipFragment" />
+
+</navigation>

@@ -5,19 +5,25 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.example.spacedeliveryman.ui.ship.SpaceshipViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.SpaceshipFragment">
+        tools:context=".ui.ship.SpaceshipFragment">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:lineSpacingExtra="8dp"
             android:text="@string/total_point_formatted_text"
+            android:textAlignment="center"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/divider"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/divider"
@@ -59,36 +65,43 @@
             android:id="@+id/propertySelectionView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:currentValue="@={viewModel.shipDurability}"
             app:layout_constraintBottom_toTopOf="@+id/propertySelectionView2"
             app:layout_constraintEnd_toEndOf="@+id/divider"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/divider"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-            app:propertyTitle="@string/durability_property_text" />
+            app:maxValue="@{viewModel.maxDurability}"
+            app:propertyTitle="@{@string/durability_property_text(viewModel.shipDurability)}" />
 
         <com.example.spacedeliveryman.custom.PropertySelectionView
             android:id="@+id/propertySelectionView2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:currentValue="@={viewModel.shipSpeed}"
             app:layout_constraintBottom_toTopOf="@+id/propertySelectionView3"
             app:layout_constraintEnd_toEndOf="@+id/propertySelectionView"
             app:layout_constraintHorizontal_bias="0.5"
+            app:maxValue="@{viewModel.maxSpeed}"
             app:layout_constraintStart_toStartOf="@+id/propertySelectionView"
             app:layout_constraintTop_toBottomOf="@+id/propertySelectionView"
-            app:propertyTitle="@string/speed_property_text" />
+            app:propertyTitle="@{@string/speed_property_text(viewModel.shipSpeed)}" />
 
         <com.example.spacedeliveryman.custom.PropertySelectionView
             android:id="@+id/propertySelectionView3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:currentValue="@={viewModel.shipCapacity}"
+            app:maxValue="@{viewModel.maxCapacity}"
             app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintEnd_toEndOf="@+id/propertySelectionView2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/propertySelectionView2"
             app:layout_constraintTop_toBottomOf="@+id/propertySelectionView2"
-            app:propertyTitle="@string/capacity_property_text" />
+            app:propertyTitle="@{@string/capacity_property_text(viewModel.shipCapacity)}" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            android:enabled="@{viewModel.buttonState}"
             android:id="@+id/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
