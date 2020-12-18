@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">SpaceDeliveryMan</string>
+
+    <!-- Formatted -->
+    <string name="total_point_formatted_text">Dağıtılacak Puan : 15</string>
+    <string name="ugs_formatted_text">UGS: %1$d</string>
+    <string name="eus_formatted_text">EUG : %1$d</string>
+    <string name="ds_formatted_text">DS: %1$d</string>
+
+    <!-- Properties -->
+    <string name="durability_property_text">Dayanıklılık</string>
+    <string name="speed_property_text">Hız</string>
+    <string name="capacity_property_text">Kapasite</string>
+
+    <!-- Hint -->
+    <string name="ship_name_hint">Gemi Adı</string>
+    <string name="search_hint">Ara</string>
+
+    <!-- Button Text -->
+    <string name="continue_button_text">Devam Et</string>
+    
+    <!-- Tabs -->
+    <string name="station_tab_text">İstasyonlar</string>
+    <string name="favorite_tab_text">Favoriler</string>
+
+    <!-- Titles -->
+    <string name="favorite_title">Favoriler</string>
+    
+</resources>
