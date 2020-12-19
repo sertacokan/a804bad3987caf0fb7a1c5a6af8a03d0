@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="@string/station_tab_text"
+    <item
+        android:id="@+id/stationsDest"
         android:icon="@drawable/ic_station"
-        />
-    <item android:title="@string/favorite_tab_text"
+        android:title="@string/station_tab_text" />
+    <item
+        android:id="@+id/favoritesDest"
         android:icon="@drawable/ic_favorite_filled"
-        />
+        android:title="@string/favorite_tab_text" />
 </menu>

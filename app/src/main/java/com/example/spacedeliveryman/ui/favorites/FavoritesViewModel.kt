@@ -1,7 +1,20 @@
 package com.example.spacedeliveryman.ui.favorites
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.spacedeliveryman.database.station.SpaceStationEntity
+import com.example.spacedeliveryman.repositories.FavoriteRepository
+import kotlinx.coroutines.launch
 
-class FavoritesViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class FavoritesViewModel(private val favoriteRepository: FavoriteRepository) : ViewModel() {
+
+    val favoriteStations = favoriteRepository.getFavoriteStations().asLiveData()
+
+    fun deleteFromFavoriteStation(favoriteStationEntity: SpaceStationEntity) {
+        viewModelScope.launch {
+            favoriteRepository.removeFromFavorite(favoriteStationEntity)
+        }
+    }
+
 }

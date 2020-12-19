@@ -3,6 +3,7 @@ package com.example.spacedeliveryman.holders
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.spacedeliveryman.database.station.SpaceStationEntity
 import com.example.spacedeliveryman.databinding.ListItemFavoriteStationBinding
 
 class FavoriteStationHolder private constructor(private val binding: ListItemFavoriteStationBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -15,8 +16,9 @@ class FavoriteStationHolder private constructor(private val binding: ListItemFav
         }
     }
 
-    fun bind() {
+    fun bind(spaceStationEntity: SpaceStationEntity) {
         with(binding) {
+            stationEntity = spaceStationEntity
             executePendingBindings()
         }
     }

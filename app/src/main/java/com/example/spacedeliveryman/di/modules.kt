@@ -27,7 +27,7 @@ val networkModule = module {
 
 val databaseModule = module {
     single { Room.databaseBuilder(androidContext(), SpaceDeliveryDatabase::class.java, "SpaceDeliveryDB").build() }
-    single { get<SpaceDeliveryDatabase>().spaceStationDao }
+    factory { get<SpaceDeliveryDatabase>().spaceStationDao() }
 }
 
 

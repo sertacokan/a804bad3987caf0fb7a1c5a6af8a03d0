@@ -13,9 +13,9 @@ class SpaceshipViewModel : ViewModel() {
 
     private val propertyTotalValue = 15
 
-    val shipDurability = MutableLiveData<Int>()
-    val shipSpeed = MutableLiveData<Int>()
-    val shipCapacity = MutableLiveData<Int>()
+    val shipDurability = MutableLiveData(0)
+    val shipSpeed = MutableLiveData(0)
+    val shipCapacity = MutableLiveData(0)
 
     private val _durabilityMaxValue: LiveData<Pair<Int?, Int?>>
     private val _speedMaxValue: LiveData<Pair<Int?, Int?>>

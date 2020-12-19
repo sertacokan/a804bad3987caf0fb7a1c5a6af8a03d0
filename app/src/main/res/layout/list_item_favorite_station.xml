@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="stationEntity"
+            type="com.example.spacedeliveryman.database.station.SpaceStationEntity" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -25,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:text="@{@string/capacity_formatted_text(stationEntity.capacity)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/first_names" />
@@ -35,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:text="@{@string/distance_from_earth_formatted_text(stationEntity.distanceFromEarth)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView3"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
@@ -47,6 +52,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/favorite_button_selector"
+                android:checked="@{stationEntity.isFavorite() == 1}"
                 android:textOff=""
                 android:textOn=""
                 app:layout_constraintEnd_toEndOf="parent"

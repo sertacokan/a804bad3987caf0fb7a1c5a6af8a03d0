@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.spacedeliveryman.R
@@ -16,17 +17,13 @@ class BottomNavContainerFragment : Fragment() {
 
     private val binding: FragmentBottomNavContainerBinding by dataBinding(R.layout.fragment_bottom_nav_container)
 
-    private val navController by lazy {
-        val navHostFragment = childFragmentManager.findFragmentById(R.id.tab_fragment_container) as NavHostFragment
-        navHostFragment.navController
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val navController = requireActivity().findNavController(R.id.tab_fragment_container)
         binding.bottomNavigationView.setupWithNavController(navController)
     }
 }

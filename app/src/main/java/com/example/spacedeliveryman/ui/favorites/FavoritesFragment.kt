@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.spacedeliveryman.R
+import com.example.spacedeliveryman.adapters.FavoriteStationListAdapter
 import com.example.spacedeliveryman.databinding.FavoritesFragmentBinding
 import com.example.spacedeliveryman.extensions.dataBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,5 +24,11 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.favoriteItems.apply {
+            setHasFixedSize(true)
+            adapter = FavoriteStationListAdapter()
+        }
     }
 }

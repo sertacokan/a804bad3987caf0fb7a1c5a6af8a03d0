@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.spacedeliveryman.ui.favorites.FavoritesViewModel" />
@@ -15,10 +16,12 @@
         tools:context=".ui.favorites.FavoritesFragment">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favorite_items"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="24dp"
             android:orientation="vertical"
+            app:favoriteStationList="@{viewModel.favoriteStations}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,12 +30,12 @@
             tools:listitem="@layout/list_item_favorite_station" />
 
         <TextView
-            android:textSize="20sp"
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/favorite_title"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/divider2"
             app:layout_constraintStart_toStartOf="@+id/divider2"
             app:layout_constraintTop_toTopOf="parent" />
