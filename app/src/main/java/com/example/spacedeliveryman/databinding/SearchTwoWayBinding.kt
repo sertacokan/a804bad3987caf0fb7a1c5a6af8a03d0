@@ -19,6 +19,7 @@ fun SearchView.getCurrentQuery(): String {
 
 @BindingAdapter("queryTextAttrChanged")
 fun SearchView.setQueryListener(inverseListener: InverseBindingListener) {
+
     val listener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
             return true
@@ -29,4 +30,6 @@ fun SearchView.setQueryListener(inverseListener: InverseBindingListener) {
             return true
         }
     }
+
+    setOnQueryTextListener(listener)
 }

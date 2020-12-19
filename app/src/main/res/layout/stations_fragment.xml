@@ -98,11 +98,11 @@
             tools:text="49s" />
 
         <androidx.appcompat.widget.SearchView
-            android:focusableInTouchMode="true"
             android:id="@+id/searchView2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:focusableInTouchMode="true"
             app:layout_constraintEnd_toEndOf="@+id/textView10"
             app:layout_constraintStart_toStartOf="@+id/textView8"
             app:layout_constraintTop_toBottomOf="@+id/textView9"

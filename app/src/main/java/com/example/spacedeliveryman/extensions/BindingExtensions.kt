@@ -16,7 +16,6 @@ fun <DB : ViewDataBinding> ViewGroup.dataBinding(@LayoutRes layout: Int): Lazy<D
 
 fun <DB : ViewDataBinding> Fragment.dataBinding(@LayoutRes layout: Int): Lazy<DB> {
     return lazy(LazyThreadSafetyMode.NONE) {
-        val layoutInflater = LayoutInflater.from(context)
         DataBindingUtil.inflate(layoutInflater, layout, null, true)
     }
 }

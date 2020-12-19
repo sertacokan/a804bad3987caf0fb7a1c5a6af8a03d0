@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.BottomNavContainerFragment">
@@ -22,14 +21,14 @@
             app:navGraph="@navigation/bottom_navigation_graph" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            app:menu="@menu/bottom_nav_menu"
             android:id="@+id/bottomNavigationView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_fragment_container" />
+            app:layout_constraintTop_toBottomOf="@+id/tab_fragment_container"
+            app:menu="@menu/bottom_nav_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

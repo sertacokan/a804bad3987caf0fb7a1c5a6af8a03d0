@@ -3,6 +3,7 @@ package com.example.spacedeliveryman
 import android.app.Application
 import com.example.spacedeliveryman.di.databaseModule
 import com.example.spacedeliveryman.di.networkModule
+import com.example.spacedeliveryman.di.repositoryModule
 import com.example.spacedeliveryman.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -16,7 +17,7 @@ class SpaceDeliveryApp : Application() {
         startKoin {
             androidContext(this@SpaceDeliveryApp)
             androidLogger(level = Level.DEBUG)
-            modules(networkModule, viewModelModule, databaseModule)
+            modules(networkModule, viewModelModule, databaseModule, repositoryModule)
         }
     }
 }
