@@ -6,14 +6,14 @@ import androidx.databinding.InverseBindingListener
 import com.example.spacedeliveryman.custom.PropertySelectionView
 
 @BindingAdapter("currentValue")
-fun PropertySelectionView.setPropertyValue(currentValue: Int) {
+fun PropertySelectionView.setCurrentPropertyValue(currentValue: Int) {
     if (getPropertyValue() != currentValue) {
         setPropertyValue(currentValue)
     }
 }
 
 @InverseBindingAdapter(attribute = "currentValue")
-fun PropertySelectionView.getPropertyValue(): Int {
+fun PropertySelectionView.getCurrentPropertyValue(): Int {
     return getPropertyValue()
 }
 

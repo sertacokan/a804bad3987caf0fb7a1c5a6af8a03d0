@@ -21,16 +21,18 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
 
     init {
 
-        viewModelScope.launch {
-            val spaceStations = spaceStationRepository.getSpaceStations()
-            val entityList = withContext(Dispatchers.Default) { spaceStationRepository.convertToEntities(spaceStations) }
-            spaceStationRepository.saveSpaceStations(entityList)
-        }
+        viewModelScope.launch { manageStations() }
 
         _stations.addSource(_allStations) { entityList -> _stations.value = entityList }
         _stations.addSource(_searchStations) { entityList -> _stations.value = entityList }
     }
 
     val stations: LiveData<List<SpaceStationEntity>> = _stations
+
+    private suspend fun manageStations() {
+        val spaceStations = spaceStationRepository.getSpaceStations()
+        val entityList = withContext(Dispatchers.Default) { spaceStationRepository.convertToEntities(spaceStations) }
+        spaceStationRepository.saveSpaceStations(entityList)
+    }
 
 }
