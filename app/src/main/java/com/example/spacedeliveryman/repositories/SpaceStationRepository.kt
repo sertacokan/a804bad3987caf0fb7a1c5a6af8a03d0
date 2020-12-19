@@ -43,6 +43,12 @@ class SpaceStationRepository(private val spaceStationService: SpaceStationServic
         spaceStationDao.updateDistanceFromCurrentStation(entities)
     }
 
+    suspend fun travelToCurrentStation(spaceStationEntity: SpaceStationEntity, deliveredCount: Int) {
+        val remainingNeed = spaceStationEntity.need - deliveredCount
+        val remainingStock = spaceStationEntity.capacity - deliveredCount
+        completeStationDelivery(spaceStationEntity.copy(need = remainingNeed, stock = remainingStock))
+    }
+
     fun convertToEntities(spaceStations: List<SpaceStationResponseModel>): List<SpaceStationEntity> {
 
         val earth = spaceStations.find { it.name == "Dünya" }

@@ -21,23 +21,19 @@ class DataStoreRepository(private val spaceshipDataStore: SpaceshipDataStore, pr
     }
 
     suspend fun saveRemainingData(capacity: Int, speed: Int, durability: Int) {
-        remainingDataStore.saveRemainingDeliveryInfos(capacity, speed, durability)
+        remainingDataStore.saveRemainingDeliveryInfo(capacity, speed, durability)
     }
 
     suspend fun updateDS(ds: Int) {
         remainingDataStore.updateDS(ds)
     }
 
-    suspend fun decreaseEUS(eus: Int) {
-        remainingDataStore.decreaseEUS(eus)
-    }
-
-    suspend fun updateUGS(ugs: Int) {
-        remainingDataStore.updateUGS(ugs)
-    }
-
     suspend fun damageSpaceship(damage: Int) {
         spaceshipDataStore.damageSpaceship(damage)
+    }
+
+    suspend fun travelToCurrentStation(travelTime: Int, deliveredUGS: Int) {
+        remainingDataStore.travelToCurrentStation(deliveredUGS, travelTime)
     }
 
 }

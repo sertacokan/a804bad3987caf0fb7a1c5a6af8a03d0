@@ -7,6 +7,7 @@ import com.example.spacedeliveryman.repositories.SpaceStationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.min
 
 class StationsViewModel(private val spaceStationRepository: SpaceStationRepository, private val dataStoreRepository: DataStoreRepository) : ViewModel() {
 
@@ -69,6 +70,7 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
 
     fun changeCurrentStation(stationEntity: SpaceStationEntity) {
         viewModelScope.launch {
+            travelToCurrentStation(stationEntity)
             val stationList = stations.value ?: emptyList()
             val calculatedList = withContext(Dispatchers.Default) { spaceStationRepository.calculateDistanceFromCurrentStation(stationList, stationEntity) }
             spaceStationRepository.updateDistanceFromCurrentStation(calculatedList)
@@ -83,6 +85,12 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
             val entityList = withContext(Dispatchers.Default) { spaceStationRepository.convertToEntities(spaceStations) }
             spaceStationRepository.saveSpaceStations(entityList)
         }
+    }
+
+    private suspend fun travelToCurrentStation(stationEntity: SpaceStationEntity) {
+        val deliveredUGS = min(stationEntity.need, stationEntity.stock)
+        dataStoreRepository.travelToCurrentStation(stationEntity.distanceFromActiveStation.toInt(), deliveredUGS)
+        spaceStationRepository.travelToCurrentStation(stationEntity, deliveredUGS)
     }
 
 }

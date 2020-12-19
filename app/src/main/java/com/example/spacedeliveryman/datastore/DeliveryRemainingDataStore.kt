@@ -18,7 +18,7 @@ class DeliveryRemainingDataStore(private val dataStore: DataStore<DeliveryRemain
         }
     }
 
-    suspend fun saveRemainingDeliveryInfos(capacity: Int, speed: Int, durability: Int) {
+    suspend fun saveRemainingDeliveryInfo(capacity: Int, speed: Int, durability: Int) {
         dataStore.updateData { preferences ->
             preferences
                 .toBuilder()
@@ -29,27 +29,23 @@ class DeliveryRemainingDataStore(private val dataStore: DataStore<DeliveryRemain
         }
     }
 
-    //UGS ↠ Uzay Giysisi Sayısı
-    suspend fun updateUGS(deliveredUGS: Int) {
-        dataStore.updateData { preferences ->
-            val remainingUGS = preferences.ugs - deliveredUGS
-            preferences.toBuilder().setUgs(remainingUGS).build()
-        }
-    }
-
-    //EUS ↠ Evrensel Uzay Süresi
-    suspend fun decreaseEUS(eus: Int) {
-        dataStore.updateData { preferences ->
-            val remainingEUS = preferences.eus - eus
-            preferences.toBuilder().setEus(remainingEUS).build()
-        }
-    }
-
     //DS ↠ Dayanıklılık Süresi
     suspend fun updateDS(ds: Int) {
         dataStore.updateData { preferences ->
             val remainingDS = preferences.ds - ds
             preferences.toBuilder().setDs(remainingDS).build()
+        }
+    }
+
+    /*
+    * UGS ↠ Uzay Giysisi Sayısı
+    * EUS ↠ Evrensel Uzay Süresi
+    * */
+    suspend fun travelToCurrentStation(deliveredUGS: Int, travelTime: Int) {
+        dataStore.updateData { preferences ->
+            val remainingUGS = preferences.ugs - deliveredUGS
+            val remainingEUS = preferences.eus - travelTime
+            preferences.toBuilder().setUgs(remainingUGS).setEus(remainingEUS).build()
         }
     }
 }
