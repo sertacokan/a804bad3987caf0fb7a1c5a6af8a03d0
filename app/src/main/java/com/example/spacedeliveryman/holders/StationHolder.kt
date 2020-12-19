@@ -25,7 +25,9 @@ class StationHolder private constructor(private val binding: ListItemStationsBin
     ) {
         with(binding) {
             stationEntity = spaceStationEntity
-            this.favoriteSelectionListener = favoriteSelectionListener
+            travelClickListener = stationTravelClickListener
+            favoriteListener = favoriteSelectionListener
             executePendingBindings()
         }
-    }}
+    }
+}

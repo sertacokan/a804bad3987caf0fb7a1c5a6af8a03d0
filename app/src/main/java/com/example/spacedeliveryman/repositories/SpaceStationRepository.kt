@@ -53,17 +53,12 @@ class SpaceStationRepository(private val spaceStationService: SpaceStationServic
             val distanceY = earth?.coordinateY?.minus(station.coordinateY)?.absoluteValue?.toDouble() ?: 0.0
             val distance = sqrt(distanceX.pow(2) + distanceY.pow(2))
 
-            if (station.name == earth?.name) {
-                SpaceStationEntity(
-                    0, station.name, distance, station.coordinateX, station.coordinateY, station.capacity, station.stock,
-                    station.need, 0, 0, 1, distance
-                )
-            } else {
-                SpaceStationEntity(
-                    0, station.name, distance, station.coordinateX, station.coordinateY, station.capacity, station.stock,
-                    station.need, 0, 0, 0, distance
-                )
-            }
+            val isActive = if (station.name == earth?.name) 1 else 0
+
+            SpaceStationEntity(
+                0, station.name, distance, station.coordinateX, station.coordinateY, station.capacity, station.stock,
+                station.need, 0, 0, isActive, distance
+            )
         }
     }
 

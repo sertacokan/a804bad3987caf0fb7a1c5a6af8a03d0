@@ -10,7 +10,7 @@
             type="com.example.spacedeliveryman.database.station.SpaceStationEntity" />
 
         <variable
-            name="favoriteSelectionListener"
+            name="favoriteListener"
             type="com.example.spacedeliveryman.utils.FavoriteSelectionListener" />
 
         <variable
@@ -61,7 +61,7 @@
                 style="@style/FavoriteButtonStyle"
                 android:layout_marginEnd="8dp"
                 android:checked="@{stationEntity.isFavorite() == 1}"
-                android:onClick="@{() -> favoriteSelectionListener.onFavoriteClicked(stationEntity)}"
+                android:onClick="@{() -> favoriteListener.onFavoriteClicked(stationEntity)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView12" />
 
