@@ -38,7 +38,6 @@ class StationsFragment : Fragment(), FavoriteSelectionListener {
         }
 
         pageSnapHelper.attachToRecyclerView(binding.stationList)
-
     }
 
     override fun onFavoriteClicked(spaceStationEntity: SpaceStationEntity) {

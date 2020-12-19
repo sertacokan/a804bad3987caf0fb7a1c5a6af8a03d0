@@ -1,5 +1,6 @@
 package com.example.spacedeliveryman.di
 
+import androidx.datastore.createDataStore
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.room.Room
@@ -7,6 +8,8 @@ import com.example.spacedeliveryman.database.MIGRATION_1_2
 import com.example.spacedeliveryman.database.MIGRATION_2_3
 import com.example.spacedeliveryman.database.SpaceDeliveryDatabase
 import com.example.spacedeliveryman.network.SpaceStationService
+import com.example.spacedeliveryman.protodata.DeliveryRemainingSerializer
+import com.example.spacedeliveryman.protodata.SpaceshipSerializer
 import com.example.spacedeliveryman.repositories.FavoriteRepository
 import com.example.spacedeliveryman.repositories.SpaceStationRepository
 import com.example.spacedeliveryman.ui.favorites.FavoritesViewModel
@@ -54,4 +57,9 @@ val repositoryModule = module {
 
 val utilsModule = module {
     factory { PagerSnapHelper() }
+}
+
+val dataStoreModule = module {
+    single { androidContext().createDataStore(fileName = "spaceship.pb",serializer = SpaceshipSerializer) }
+    single { androidContext().createDataStore(fileName = "delivery_remaining.pb",serializer = DeliveryRemainingSerializer) }
 }
