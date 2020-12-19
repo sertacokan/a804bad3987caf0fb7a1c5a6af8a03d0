@@ -4,6 +4,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import java.util.*
 
 @BindingAdapter("queryText")
 fun SearchView.setCurrentQuery(queryText: String?) {
@@ -14,7 +15,7 @@ fun SearchView.setCurrentQuery(queryText: String?) {
 
 @InverseBindingAdapter(attribute = "queryText")
 fun SearchView.getCurrentQuery(): String {
-    return query.toString()
+    return query.toString().toUpperCase(Locale.ROOT)
 }
 
 @BindingAdapter("queryTextAttrChanged")

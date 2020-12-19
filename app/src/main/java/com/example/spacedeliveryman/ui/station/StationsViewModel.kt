@@ -11,6 +11,8 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
 
     private val _allStations = spaceStationRepository.getAllStations().asLiveData()
 
+    private val _activeStation: LiveData<SpaceStationEntity?> = spaceStationRepository.getActiveStation().asLiveData()
+
     val stationNameSearchText = MutableLiveData<String>()
 
     private val _searchStations = stationNameSearchText.switchMap { stationName ->
@@ -19,8 +21,9 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
 
     private val _stations = MediatorLiveData<List<SpaceStationEntity>>()
 
-    init {
+    val activeStationName = _activeStation.map { it?.name }
 
+    init {
         viewModelScope.launch { manageStations() }
 
         _stations.addSource(_allStations) { entityList -> _stations.value = entityList }
@@ -29,10 +32,21 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
 
     val stations: LiveData<List<SpaceStationEntity>> = _stations
 
+    fun completeDelivery(spaceStationEntity: SpaceStationEntity) {
+        viewModelScope.launch {
+            spaceStationRepository.completeStationDelivery(spaceStationEntity)
+        }
+    }
+
+
     private suspend fun manageStations() {
+
         val spaceStations = spaceStationRepository.getSpaceStations()
-        val entityList = withContext(Dispatchers.Default) { spaceStationRepository.convertToEntities(spaceStations) }
-        spaceStationRepository.saveSpaceStations(entityList)
+
+        if (spaceStations.isEmpty()) {
+            val entityList = withContext(Dispatchers.Default) { spaceStationRepository.convertToEntities(spaceStations) }
+            spaceStationRepository.saveSpaceStations(entityList)
+        }
     }
 
 }

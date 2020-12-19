@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.spacedeliveryman.ui.station.StationsViewModel" />
@@ -110,26 +109,32 @@
             app:queryText="@={viewModel.stationNameSearchText}" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/station_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/textView11"
             app:layout_constraintEnd_toEndOf="@+id/searchView2"
             app:layout_constraintStart_toStartOf="@+id/searchView2"
-            app:layout_constraintTop_toBottomOf="@+id/searchView2" />
+            app:layout_constraintTop_toBottomOf="@+id/searchView2"
+            app:stationList="@{viewModel.stations}"
+            tools:listitem="@layout/list_item_stations" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
+            android:text='@{viewModel.activeStationName ?? @string/not_active_station_found_text}'
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Tgvslxp" />
+            tools:text="@string/not_active_station_found_text"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

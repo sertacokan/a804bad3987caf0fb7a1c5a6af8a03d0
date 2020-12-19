@@ -4,12 +4,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.spacedeliveryman.database.station.SpaceStationEntity
-import com.example.spacedeliveryman.holders.FavoriteStationHolder
+import com.example.spacedeliveryman.holders.StationHolder
 
-class FavoriteStationListAdapter : ListAdapter<SpaceStationEntity, FavoriteStationHolder>(FAVORITE_ITEM_DIFF_UTIL) {
+class SpaceStationAdapter : ListAdapter<SpaceStationEntity, StationHolder>(STATION_DIFF_UTIL) {
 
     companion object {
-        private val FAVORITE_ITEM_DIFF_UTIL = object : DiffUtil.ItemCallback<SpaceStationEntity>() {
+        private val STATION_DIFF_UTIL = object : DiffUtil.ItemCallback<SpaceStationEntity>() {
             override fun areItemsTheSame(oldItem: SpaceStationEntity, newItem: SpaceStationEntity): Boolean {
                 return oldItem.stationId == newItem.stationId
             }
@@ -20,12 +20,12 @@ class FavoriteStationListAdapter : ListAdapter<SpaceStationEntity, FavoriteStati
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteStationHolder {
-        return FavoriteStationHolder.createHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StationHolder {
+        return StationHolder.createHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: FavoriteStationHolder, position: Int) {
-        val favoriteStationItem = getItem(position)
-        holder.bind(favoriteStationItem)
+    override fun onBindViewHolder(holder: StationHolder, position: Int) {
+        val stationItem = getItem(position)
+        holder.bind(stationItem)
     }
 }

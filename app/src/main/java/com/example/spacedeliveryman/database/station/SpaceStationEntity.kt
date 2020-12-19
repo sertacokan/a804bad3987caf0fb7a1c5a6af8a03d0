@@ -24,5 +24,9 @@ data class SpaceStationEntity(
     @ColumnInfo(name = "Need")
     val need: Int,
     @ColumnInfo(name = "IsFavorite")
-    val isFavorite: Int = 0
+    val isFavorite: Int,
+    @ColumnInfo(name = "IsCompleted")
+    val isCompleted: Int,
+    @ColumnInfo(name = "IsActive")
+    val isActive: Int = 0
 )

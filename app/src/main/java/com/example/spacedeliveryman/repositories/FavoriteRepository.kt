@@ -10,10 +10,6 @@ class FavoriteRepository(private val spaceStationDao: SpaceStationDao) {
         return spaceStationDao.getFavoriteStations()
     }
 
-    suspend fun addToFavorite(favoriteStationEntity: SpaceStationEntity) {
-        spaceStationDao.updateStation(favoriteStationEntity.copy(isFavorite = 1))
-    }
-
     suspend fun removeFromFavorite(favoriteStationEntity: SpaceStationEntity) {
         spaceStationDao.updateStation(favoriteStationEntity.copy(isFavorite = 0))
     }

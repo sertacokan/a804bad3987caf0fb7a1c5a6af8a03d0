@@ -1,6 +1,10 @@
 package com.example.spacedeliveryman.di
 
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.room.Room
+import com.example.spacedeliveryman.database.MIGRATION_1_2
+import com.example.spacedeliveryman.database.MIGRATION_2_3
 import com.example.spacedeliveryman.database.SpaceDeliveryDatabase
 import com.example.spacedeliveryman.network.SpaceStationService
 import com.example.spacedeliveryman.repositories.FavoriteRepository
@@ -18,20 +22,22 @@ val networkModule = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl("https://run.mocky.io/v3")
+            .baseUrl("https://run.mocky.io/v3/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
 
-    single {
-        get<Retrofit>().create(SpaceStationService::class.java)
-    }
+    single { get<Retrofit>().create(SpaceStationService::class.java) }
 }
 
 
 val databaseModule = module {
-    single { Room.databaseBuilder(androidContext(), SpaceDeliveryDatabase::class.java, "SpaceDeliveryDB").build() }
-    factory { get<SpaceDeliveryDatabase>().spaceStationDao() }
+    single {
+        Room.databaseBuilder(androidContext(), SpaceDeliveryDatabase::class.java, "SpaceDeliveryDB")
+            .addMigrations(MIGRATION_2_3)
+            .build()
+    }
+    single { get<SpaceDeliveryDatabase>().spaceStationDao() }
 }
 
 
@@ -44,4 +50,8 @@ val viewModelModule = module {
 val repositoryModule = module {
     single { FavoriteRepository(spaceStationDao = get()) }
     single { SpaceStationRepository(spaceStationService = get(), spaceStationDao = get()) }
+}
+
+val utilsModule = module {
+    factory { PagerSnapHelper() }
 }
