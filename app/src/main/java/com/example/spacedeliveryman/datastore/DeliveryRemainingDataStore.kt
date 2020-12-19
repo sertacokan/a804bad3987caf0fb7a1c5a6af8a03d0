@@ -2,7 +2,6 @@ package com.example.spacedeliveryman.datastore
 
 import androidx.datastore.DataStore
 import com.example.spacedeliveryman.DeliveryRemainingData
-import com.example.spacedeliveryman.Spaceship
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import java.io.IOException
@@ -19,13 +18,13 @@ class DeliveryRemainingDataStore(private val dataStore: DataStore<DeliveryRemain
         }
     }
 
-    suspend fun saveRemainingDeliveryInfos(spaceship: Spaceship) {
+    suspend fun saveRemainingDeliveryInfos(capacity: Int, speed: Int, durability: Int) {
         dataStore.updateData { preferences ->
             preferences
                 .toBuilder()
-                .setUgs(spaceship.capacity * 10_000)
-                .setEus(spaceship.speed * 20)
-                .setDs(spaceship.durability * 10_000)
+                .setUgs(capacity * 10_000)
+                .setEus(speed * 20)
+                .setDs(durability * 10_000)
                 .build()
         }
     }

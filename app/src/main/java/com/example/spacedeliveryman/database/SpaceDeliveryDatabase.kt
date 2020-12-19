@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.example.spacedeliveryman.database.station.SpaceStationDao
 import com.example.spacedeliveryman.database.station.SpaceStationEntity
 
-@Database(entities = [SpaceStationEntity::class], version = 3)
+@Database(entities = [SpaceStationEntity::class], version = 4)
 abstract class SpaceDeliveryDatabase : RoomDatabase() {
 
     abstract fun spaceStationDao(): SpaceStationDao

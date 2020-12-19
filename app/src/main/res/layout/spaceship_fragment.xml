@@ -57,7 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/ship_name_hint"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:text="@={viewModel.shipName}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,9 +83,9 @@
             app:layout_constraintBottom_toTopOf="@+id/propertySelectionView3"
             app:layout_constraintEnd_toEndOf="@+id/propertySelectionView"
             app:layout_constraintHorizontal_bias="0.5"
-            app:maxValue="@{viewModel.maxSpeed}"
             app:layout_constraintStart_toStartOf="@+id/propertySelectionView"
             app:layout_constraintTop_toBottomOf="@+id/propertySelectionView"
+            app:maxValue="@{viewModel.maxSpeed}"
             app:propertyTitle="@{@string/speed_property_text(viewModel.shipSpeed)}" />
 
         <com.example.spacedeliveryman.custom.PropertySelectionView
@@ -92,21 +93,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:currentValue="@={viewModel.shipCapacity}"
-            app:maxValue="@{viewModel.maxCapacity}"
             app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintEnd_toEndOf="@+id/propertySelectionView2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/propertySelectionView2"
             app:layout_constraintTop_toBottomOf="@+id/propertySelectionView2"
+            app:maxValue="@{viewModel.maxCapacity}"
             app:propertyTitle="@{@string/capacity_property_text(viewModel.shipCapacity)}" />
 
         <com.google.android.material.button.MaterialButton
-            android:onClick="@{() -> viewModel.continueButtonClicked()}"
-            android:enabled="@{viewModel.buttonState}"
             android:id="@+id/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
+            android:enabled="@{viewModel.buttonState}"
+            android:onClick="@{() -> viewModel.continueButtonClicked()}"
             android:text="@string/continue_button_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/propertySelectionView2"

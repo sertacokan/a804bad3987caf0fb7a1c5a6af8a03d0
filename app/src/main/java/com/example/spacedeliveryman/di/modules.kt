@@ -1,12 +1,10 @@
 package com.example.spacedeliveryman.di
 
 import androidx.datastore.createDataStore
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.room.Room
-import com.example.spacedeliveryman.DeliveryRemainingData
-import com.example.spacedeliveryman.database.MIGRATION_1_2
 import com.example.spacedeliveryman.database.MIGRATION_2_3
+import com.example.spacedeliveryman.database.MIGRATION_3_4
 import com.example.spacedeliveryman.database.SpaceDeliveryDatabase
 import com.example.spacedeliveryman.datastore.DeliveryRemainingDataStore
 import com.example.spacedeliveryman.datastore.SpaceshipDataStore
@@ -14,12 +12,14 @@ import com.example.spacedeliveryman.network.SpaceStationService
 import com.example.spacedeliveryman.protodata.DeliveryRemainingSerializer
 import com.example.spacedeliveryman.protodata.SpaceshipSerializer
 import com.example.spacedeliveryman.repositories.FavoriteRepository
+import com.example.spacedeliveryman.repositories.DataStoreRepository
 import com.example.spacedeliveryman.repositories.SpaceStationRepository
 import com.example.spacedeliveryman.ui.favorites.FavoritesViewModel
 import com.example.spacedeliveryman.ui.ship.SpaceshipViewModel
 import com.example.spacedeliveryman.ui.station.StationsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -46,16 +46,16 @@ val databaseModule = module {
     single { get<SpaceDeliveryDatabase>().spaceStationDao() }
 }
 
-
 val viewModelModule = module {
-    viewModel { SpaceshipViewModel() }
+    viewModel { SpaceshipViewModel(dataStoreRepository = get()) }
     viewModel { FavoritesViewModel(favoriteRepository = get()) }
-    viewModel { StationsViewModel(spaceStationRepository = get()) }
+    viewModel { StationsViewModel(spaceStationRepository = get(),dataStoreRepository = get()) }
 }
 
 val repositoryModule = module {
     single { FavoriteRepository(spaceStationDao = get()) }
     single { SpaceStationRepository(spaceStationService = get(), spaceStationDao = get()) }
+    single { DataStoreRepository(spaceshipDataStore = get(), remainingDataStore = get()) }
 }
 
 val utilsModule = module {
@@ -63,8 +63,8 @@ val utilsModule = module {
 }
 
 val dataStoreModule = module {
-    single { androidContext().createDataStore(fileName = "spaceship.pb", serializer = SpaceshipSerializer) }
-    single { androidContext().createDataStore(fileName = "delivery_remaining.pb", serializer = DeliveryRemainingSerializer) }
-    single { SpaceshipDataStore(dataStore = get()) }
-    single { DeliveryRemainingDataStore(dataStore = get()) }
+    single(named("spaceship")) { androidContext().createDataStore(fileName = "spaceship.pb", serializer = SpaceshipSerializer) }
+    single(named("remaining")) { androidContext().createDataStore(fileName = "delivery_remaining.pb", serializer = DeliveryRemainingSerializer) }
+    single { SpaceshipDataStore(dataStore = get(named("spaceship"))) }
+    single { DeliveryRemainingDataStore(dataStore = get(named("remaining"))) }
 }

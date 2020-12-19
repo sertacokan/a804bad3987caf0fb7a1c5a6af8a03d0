@@ -4,7 +4,7 @@
     <!-- Formatted -->
     <string name="total_point_formatted_text">Dağıtılacak Puan <br>15</br></string>
     <string name="ugs_formatted_text">UGS: %1$d</string>
-    <string name="eus_formatted_text">EUG : %1$d</string>
+    <string name="eus_formatted_text">EUS : %1$d</string>
     <string name="ds_formatted_text">DS: %1$d</string>
     <string name="capacity_formatted_text">Depo Kapasitesi: %1$d</string>
     <string name="distance_from_earth_formatted_text">Dünya\'ya Uzaklığı: %1$.2f Işık Yılı</string>

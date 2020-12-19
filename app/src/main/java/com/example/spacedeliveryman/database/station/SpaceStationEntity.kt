@@ -28,5 +28,7 @@ data class SpaceStationEntity(
     @ColumnInfo(name = "IsCompleted")
     val isCompleted: Int,
     @ColumnInfo(name = "IsActive")
-    val isActive: Int = 0
+    val isActive: Int,
+    @ColumnInfo(name = "DistanceFromCurrentStation")
+    val distanceFromActiveStation: Double
 )

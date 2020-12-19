@@ -21,6 +21,9 @@ interface SpaceStationDao {
     @Query("SELECT * FROM SpaceStationTable WHERE IsActive = 1")
     fun getCurrentStation(): Flow<SpaceStationEntity>
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateDistanceFromCurrentStation(stations: List<SpaceStationEntity>)
+
     @Update
     suspend fun updateStation(spaceStationEntity: SpaceStationEntity)
 }
