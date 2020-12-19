@@ -14,7 +14,7 @@ class SpaceDeliveryApp : Application() {
         startKoin {
             androidContext(this@SpaceDeliveryApp)
             androidLogger(level = Level.DEBUG)
-            modules(networkModule, viewModelModule, databaseModule, repositoryModule, utilsModule)
+            modules(networkModule, viewModelModule, databaseModule, repositoryModule, utilsModule, dataStoreModule)
         }
     }
 }

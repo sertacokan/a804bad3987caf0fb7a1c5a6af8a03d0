@@ -4,9 +4,12 @@ import androidx.datastore.createDataStore
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.room.Room
+import com.example.spacedeliveryman.DeliveryRemainingData
 import com.example.spacedeliveryman.database.MIGRATION_1_2
 import com.example.spacedeliveryman.database.MIGRATION_2_3
 import com.example.spacedeliveryman.database.SpaceDeliveryDatabase
+import com.example.spacedeliveryman.datastore.DeliveryRemainingDataStore
+import com.example.spacedeliveryman.datastore.SpaceshipDataStore
 import com.example.spacedeliveryman.network.SpaceStationService
 import com.example.spacedeliveryman.protodata.DeliveryRemainingSerializer
 import com.example.spacedeliveryman.protodata.SpaceshipSerializer
@@ -60,6 +63,8 @@ val utilsModule = module {
 }
 
 val dataStoreModule = module {
-    single { androidContext().createDataStore(fileName = "spaceship.pb",serializer = SpaceshipSerializer) }
-    single { androidContext().createDataStore(fileName = "delivery_remaining.pb",serializer = DeliveryRemainingSerializer) }
+    single { androidContext().createDataStore(fileName = "spaceship.pb", serializer = SpaceshipSerializer) }
+    single { androidContext().createDataStore(fileName = "delivery_remaining.pb", serializer = DeliveryRemainingSerializer) }
+    single { SpaceshipDataStore(dataStore = get()) }
+    single { DeliveryRemainingDataStore(dataStore = get()) }
 }
