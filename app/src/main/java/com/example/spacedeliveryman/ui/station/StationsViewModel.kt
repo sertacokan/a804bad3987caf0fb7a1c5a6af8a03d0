@@ -38,6 +38,11 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
         }
     }
 
+    fun addStationToFavorite(stationEntity: SpaceStationEntity) {
+        viewModelScope.launch {
+            spaceStationRepository.addToFavorite(stationEntity)
+        }
+    }
 
     private suspend fun manageStations() {
 

@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="stationEntity"
             type="com.example.spacedeliveryman.database.station.SpaceStationEntity" />
+
+        <variable
+            name="favoriteSelectionListener"
+            type="com.example.spacedeliveryman.utils.FavoriteSelectionListener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -46,6 +49,7 @@
                 tools:text="@string/station_stock_formatted_text" />
 
             <ToggleButton
+                android:onClick="@{() -> favoriteSelectionListener.onFavoriteClicked(stationEntity)}"
                 android:id="@+id/toggleButton2"
                 style="@style/FavoriteButtonStyle"
                 android:layout_marginEnd="8dp"

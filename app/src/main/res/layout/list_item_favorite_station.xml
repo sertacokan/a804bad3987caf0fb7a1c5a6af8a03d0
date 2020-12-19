@@ -8,6 +8,11 @@
         <variable
             name="stationEntity"
             type="com.example.spacedeliveryman.database.station.SpaceStationEntity" />
+
+        <variable
+            name="favoriteSelectionListener"
+            type="com.example.spacedeliveryman.utils.FavoriteSelectionListener" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -47,13 +52,14 @@
 
             <ToggleButton
                 android:id="@+id/toggleButton"
+                style="@style/FavoriteButtonStyle"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:checked="@{stationEntity.isFavorite() == 1}"
+                android:onClick="@{() -> favoriteSelectionListener.onFavoriteClicked(stationEntity)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:checked="true"
-                style="@style/FavoriteButtonStyle" />
+                tools:checked="true" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

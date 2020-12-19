@@ -35,6 +35,10 @@ class SpaceStationRepository(private val spaceStationService: SpaceStationServic
         spaceStationDao.updateStation(spaceStationEntity.copy(isCompleted = 1))
     }
 
+    suspend fun addToFavorite(spaceStationEntity: SpaceStationEntity) {
+        spaceStationDao.updateStation(spaceStationEntity.copy(isFavorite = 1))
+    }
+
     fun convertToEntities(spaceStations: List<SpaceStationResponseModel>): List<SpaceStationEntity> {
 
         val earth = spaceStations.find { it.name == "Dünya" }
@@ -45,7 +49,7 @@ class SpaceStationRepository(private val spaceStationService: SpaceStationServic
             val distanceY = earth?.coordinateY?.minus(station.coordinateY)?.absoluteValue?.toDouble() ?: 0.0
             val distance = sqrt(distanceX.pow(2) + distanceY.pow(2))
 
-            SpaceStationEntity(0, station.name, distance, station.coordinateX, station.coordinateY, station.capacity, station.stock, station.need,0,0,0)
+            SpaceStationEntity(0, station.name, distance, station.coordinateX, station.coordinateY, station.capacity, station.stock, station.need, 0, 0, 0)
         }
 
     }

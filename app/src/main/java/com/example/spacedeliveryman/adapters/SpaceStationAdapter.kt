@@ -5,8 +5,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.spacedeliveryman.database.station.SpaceStationEntity
 import com.example.spacedeliveryman.holders.StationHolder
+import com.example.spacedeliveryman.utils.FavoriteSelectionListener
 
-class SpaceStationAdapter : ListAdapter<SpaceStationEntity, StationHolder>(STATION_DIFF_UTIL) {
+class SpaceStationAdapter(private val favoriteSelectionListener: FavoriteSelectionListener) : ListAdapter<SpaceStationEntity, StationHolder>(STATION_DIFF_UTIL) {
 
     companion object {
         private val STATION_DIFF_UTIL = object : DiffUtil.ItemCallback<SpaceStationEntity>() {
@@ -26,6 +27,6 @@ class SpaceStationAdapter : ListAdapter<SpaceStationEntity, StationHolder>(STATI
 
     override fun onBindViewHolder(holder: StationHolder, position: Int) {
         val stationItem = getItem(position)
-        holder.bind(stationItem)
+        holder.bind(stationItem,favoriteSelectionListener)
     }
 }

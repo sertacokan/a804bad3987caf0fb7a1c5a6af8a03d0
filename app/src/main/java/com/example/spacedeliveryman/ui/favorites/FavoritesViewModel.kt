@@ -11,7 +11,7 @@ class FavoritesViewModel(private val favoriteRepository: FavoriteRepository) : V
 
     val favoriteStations = favoriteRepository.getFavoriteStations().asLiveData()
 
-    fun deleteFromFavoriteStation(favoriteStationEntity: SpaceStationEntity) {
+    fun removeFromFavoriteStation(favoriteStationEntity: SpaceStationEntity) {
         viewModelScope.launch {
             favoriteRepository.removeFromFavorite(favoriteStationEntity)
         }
