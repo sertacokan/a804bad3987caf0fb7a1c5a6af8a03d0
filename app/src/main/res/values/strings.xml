@@ -2,7 +2,6 @@
     <string name="app_name">SpaceDeliveryMan</string>
 
     <!-- Formatted -->
-    <string name="total_point_formatted_text">Dağıtılacak Puan <br>15</br></string>
     <string name="ugs_formatted_text">UGS: %1$d</string>
     <string name="eus_formatted_text">EUS : %1$d</string>
     <string name="ds_formatted_text">DS: %1$d</string>
@@ -11,6 +10,8 @@
     <string name="station_name_formatted_text">İstasyon Adı : %1$s</string>
     <string name="station_stock_formatted_text">İstasyon Stok Miktarı : %1$d</string>
     <string name="station_need_formatted_text">İstasyon İhtiyacı : %1$d</string>
+    <string name="counter_formatted_text">%1$d s</string>
+    <string name="station_distance_formatted_text">%1$.2f Işık Yılı</string>
 
     <!-- Properties -->
     <string name="durability_property_text">Dayanıklılık - %1d</string>
@@ -31,6 +32,8 @@
 
     <!-- Titles -->
     <string name="favorite_title">Favoriler</string>
+    <string name="total_point_text">Dağıtılacak Puan : 15</string>
+
 
     <!-- Warning Text -->
     <string name="not_active_station_found_text">Aktif İstasyon Bulunmamaktadır.</string>

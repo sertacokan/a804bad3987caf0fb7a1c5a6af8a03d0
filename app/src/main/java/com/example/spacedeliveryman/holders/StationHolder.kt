@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spacedeliveryman.database.station.SpaceStationEntity
 import com.example.spacedeliveryman.databinding.ListItemStationsBinding
 import com.example.spacedeliveryman.utils.FavoriteSelectionListener
+import com.example.spacedeliveryman.utils.StationTravelClickListener
 
 class StationHolder private constructor(private val binding: ListItemStationsBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -17,7 +18,11 @@ class StationHolder private constructor(private val binding: ListItemStationsBin
         }
     }
 
-    fun bind(spaceStationEntity: SpaceStationEntity, favoriteSelectionListener: FavoriteSelectionListener) {
+    fun bind(
+        spaceStationEntity: SpaceStationEntity,
+        favoriteSelectionListener: FavoriteSelectionListener,
+        stationTravelClickListener: StationTravelClickListener
+    ) {
         with(binding) {
             stationEntity = spaceStationEntity
             this.favoriteSelectionListener = favoriteSelectionListener

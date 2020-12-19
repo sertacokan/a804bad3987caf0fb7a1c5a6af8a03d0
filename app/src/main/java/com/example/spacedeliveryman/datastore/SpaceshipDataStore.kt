@@ -16,7 +16,6 @@ class SpaceshipDataStore(private val dataStore: DataStore<Spaceship>) {
                 throw exception
             }
         }
-
     }
 
     suspend fun saveSpaceshipData(shipName: String, shipCapacity: Int, shipSpeed: Int, shipDurability: Int) {
@@ -32,9 +31,11 @@ class SpaceshipDataStore(private val dataStore: DataStore<Spaceship>) {
         }
     }
 
-    suspend fun updateSpaceshipName(shipName: String) {
+    //Dayanıklık Süresi(DS)’ne göre belirli sürelerde hasarın 10 birim olarak azalmalıdır.
+    suspend fun damageSpaceship(damage: Int = 10) {
         dataStore.updateData { preference ->
-            preference.toBuilder().setName(shipName).build()
+            val durability = preference.durability - damage
+            preference.toBuilder().setDurability(durability).build()
         }
     }
 

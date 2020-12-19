@@ -14,10 +14,11 @@ import com.example.spacedeliveryman.database.station.SpaceStationEntity
 import com.example.spacedeliveryman.databinding.StationsFragmentBinding
 import com.example.spacedeliveryman.extensions.dataBinding
 import com.example.spacedeliveryman.utils.FavoriteSelectionListener
+import com.example.spacedeliveryman.utils.StationTravelClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StationsFragment : Fragment(), FavoriteSelectionListener {
+class StationsFragment : Fragment(), FavoriteSelectionListener, StationTravelClickListener {
 
     private val viewModel: StationsViewModel by viewModel()
     private val binding: StationsFragmentBinding by dataBinding(R.layout.stations_fragment)
@@ -34,7 +35,7 @@ class StationsFragment : Fragment(), FavoriteSelectionListener {
 
         binding.stationList.apply {
             setHasFixedSize(true)
-            adapter = SpaceStationAdapter(this@StationsFragment)
+            adapter = SpaceStationAdapter(this@StationsFragment, this@StationsFragment)
         }
 
         pageSnapHelper.attachToRecyclerView(binding.stationList)
@@ -42,5 +43,9 @@ class StationsFragment : Fragment(), FavoriteSelectionListener {
 
     override fun onFavoriteClicked(spaceStationEntity: SpaceStationEntity) {
         viewModel.addStationToFavorite(spaceStationEntity)
+    }
+
+    override fun onStationTravelClicked(spaceStationEntity: SpaceStationEntity) {
+        viewModel.changeCurrentStation(spaceStationEntity)
     }
 }

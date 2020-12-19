@@ -22,7 +22,7 @@ interface SpaceStationDao {
     fun getCurrentStation(): Flow<SpaceStationEntity>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateDistanceFromCurrentStation(stations: List<SpaceStationEntity>)
+    suspend fun updateDistanceFromCurrentStation(stations: List<SpaceStationEntity>)
 
     @Update
     suspend fun updateStation(spaceStationEntity: SpaceStationEntity)

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="stationEntity"
             type="com.example.spacedeliveryman.database.station.SpaceStationEntity" />
@@ -11,6 +12,10 @@
         <variable
             name="favoriteSelectionListener"
             type="com.example.spacedeliveryman.utils.FavoriteSelectionListener" />
+
+        <variable
+            name="travelClickListener"
+            type="com.example.spacedeliveryman.utils.StationTravelClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -26,67 +31,75 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:textSize="16sp"
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@{@string/station_name_formatted_text(stationEntity.name)}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView13"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside"
                 tools:text="@string/station_name_formatted_text" />
 
             <TextView
-                android:textSize="16sp"
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@{@string/station_stock_formatted_text(stationEntity.stock)}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView15"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/textView12"
                 tools:text="@string/station_stock_formatted_text" />
 
             <ToggleButton
-                android:onClick="@{() -> favoriteSelectionListener.onFavoriteClicked(stationEntity)}"
                 android:id="@+id/toggleButton2"
                 style="@style/FavoriteButtonStyle"
                 android:layout_marginEnd="8dp"
                 android:checked="@{stationEntity.isFavorite() == 1}"
+                android:onClick="@{() -> favoriteSelectionListener.onFavoriteClicked(stationEntity)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView12" />
 
             <TextView
-                android:textSize="16sp"
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@{@string/station_need_formatted_text(stationEntity.need)}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView14"
                 app:layout_constraintStart_toStartOf="@+id/textView13"
                 app:layout_constraintTop_toBottomOf="@+id/textView13"
                 tools:text="@string/station_need_formatted_text" />
 
             <TextView
-                android:textSize="20sp"
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="@{@string/distance_from_earth_formatted_text(stationEntity.distanceFromEarth)}"
+                android:layout_marginBottom="32dp"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:text="@{@string/station_distance_formatted_text(stationEntity.distanceFromActiveStation)}"
                 app:layout_constraintBottom_toTopOf="@+id/button2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView15"
-                tools:text="@string/distance_from_earth_formatted_text" />
+                tools:text="@string/station_distance_formatted_text" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
+                android:enabled="@{stationEntity.isCompleted() != 1 &amp;&amp; stationEntity.isActive() != 1}"
+                android:onClick="@{() -> travelClickListener.onStationTravelClicked(stationEntity)}"
                 android:text="@string/travel_button_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

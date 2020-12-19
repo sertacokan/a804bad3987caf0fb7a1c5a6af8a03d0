@@ -29,21 +29,27 @@ class DeliveryRemainingDataStore(private val dataStore: DataStore<DeliveryRemain
         }
     }
 
-    suspend fun updateUGS(ugs: Int) {
+    //UGS ↠ Uzay Giysisi Sayısı
+    suspend fun updateUGS(deliveredUGS: Int) {
         dataStore.updateData { preferences ->
-            preferences.toBuilder().setUgs(ugs).build()
+            val remainingUGS = preferences.ugs - deliveredUGS
+            preferences.toBuilder().setUgs(remainingUGS).build()
         }
     }
 
-    suspend fun updateEUS(eus: Int) {
+    //EUS ↠ Evrensel Uzay Süresi
+    suspend fun decreaseEUS(eus: Int) {
         dataStore.updateData { preferences ->
-            preferences.toBuilder().setEus(eus).build()
+            val remainingEUS = preferences.eus - eus
+            preferences.toBuilder().setEus(remainingEUS).build()
         }
     }
 
+    //DS ↠ Dayanıklılık Süresi
     suspend fun updateDS(ds: Int) {
         dataStore.updateData { preferences ->
-            preferences.toBuilder().setDs(ds).build()
+            val remainingDS = preferences.ds - ds
+            preferences.toBuilder().setDs(remainingDS).build()
         }
     }
 }

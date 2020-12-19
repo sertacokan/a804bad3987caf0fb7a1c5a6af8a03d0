@@ -13,9 +13,9 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
     val stationNameSearchText = MutableLiveData<String>()
 
     //region Station List
-    private val _allStations = spaceStationRepository.getAllStations().asLiveData()
-
     private val _stations = MediatorLiveData<List<SpaceStationEntity>>()
+
+    private val _allStations = spaceStationRepository.getAllStations().asLiveData()
 
     private val _searchStations = stationNameSearchText.switchMap { stationName ->
         spaceStationRepository.searchStation(stationName).asLiveData()
@@ -34,6 +34,8 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
     val ds = remainingData.map { it.ds }
     val ugs = remainingData.map { it.ugs }
     val eus = remainingData.map { it.eus }
+
+    val counter = ds.map { it / 1000 }
     //endregion
 
     //region ShipInfo
@@ -45,7 +47,7 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
     //endregion
 
     init {
-        viewModelScope.launch { manageStations() }
+        viewModelScope.launch { manageStationsTransformation() }
         _stations.addSource(_allStations) { entityList -> _stations.value = entityList }
         _stations.addSource(_searchStations) { entityList -> _stations.value = entityList }
     }
@@ -55,6 +57,7 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
     fun completeDelivery(spaceStationEntity: SpaceStationEntity) {
         viewModelScope.launch {
             spaceStationRepository.completeStationDelivery(spaceStationEntity)
+            changeCurrentStation(spaceStationEntity)
         }
     }
 
@@ -64,15 +67,19 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
         }
     }
 
-    fun changeActiveStation(stationEntity: SpaceStationEntity) {
-
+    fun changeCurrentStation(stationEntity: SpaceStationEntity) {
+        viewModelScope.launch {
+            val stationList = stations.value ?: emptyList()
+            val calculatedList = withContext(Dispatchers.Default) { spaceStationRepository.calculateDistanceFromCurrentStation(stationList, stationEntity) }
+            spaceStationRepository.updateDistanceFromCurrentStation(calculatedList)
+        }
     }
 
-    private suspend fun manageStations() {
+    private suspend fun manageStationsTransformation() {
 
         val spaceStations = spaceStationRepository.getSpaceStations()
 
-        if (spaceStations.isEmpty()) {
+        if (_allStations.value?.isEmpty() == true) {
             val entityList = withContext(Dispatchers.Default) { spaceStationRepository.convertToEntities(spaceStations) }
             spaceStationRepository.saveSpaceStations(entityList)
         }

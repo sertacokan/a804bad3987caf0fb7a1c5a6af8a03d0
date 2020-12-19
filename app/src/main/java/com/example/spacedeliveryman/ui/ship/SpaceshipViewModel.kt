@@ -57,7 +57,7 @@ class SpaceshipViewModel(private val dataStoreRepository: DataStoreRepository) :
     }
 
     private suspend fun saveInfo() {
-        val name = shipName.value ?: "Default"
+        val name = shipName.value ?: "Default Gemi"
         val speed = shipSpeed.value ?: 1
         val capacity = shipCapacity.value ?: 1
         val durability = shipDurability.value ?: 1

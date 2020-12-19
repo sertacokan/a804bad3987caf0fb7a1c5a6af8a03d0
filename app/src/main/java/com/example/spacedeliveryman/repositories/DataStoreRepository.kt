@@ -28,12 +28,16 @@ class DataStoreRepository(private val spaceshipDataStore: SpaceshipDataStore, pr
         remainingDataStore.updateDS(ds)
     }
 
-    suspend fun updateEUS(eus: Int) {
-        remainingDataStore.updateEUS(eus)
+    suspend fun decreaseEUS(eus: Int) {
+        remainingDataStore.decreaseEUS(eus)
     }
 
     suspend fun updateUGS(ugs: Int) {
         remainingDataStore.updateUGS(ugs)
+    }
+
+    suspend fun damageSpaceship(damage: Int) {
+        spaceshipDataStore.damageSpaceship(damage)
     }
 
 }
