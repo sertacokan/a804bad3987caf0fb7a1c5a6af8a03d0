@@ -40,7 +40,7 @@ val networkModule = module {
 val databaseModule = module {
     single {
         Room.databaseBuilder(androidContext(), SpaceDeliveryDatabase::class.java, "SpaceDeliveryDB")
-            .addMigrations(MIGRATION_2_3)
+            .addMigrations(MIGRATION_3_4)
             .build()
     }
     single { get<SpaceDeliveryDatabase>().spaceStationDao() }
