@@ -2,6 +2,7 @@ package com.example.spacedeliveryman.repositories
 
 import com.example.spacedeliveryman.DeliveryRemainingData
 import com.example.spacedeliveryman.Spaceship
+import com.example.spacedeliveryman.database.station.SpaceStationEntity
 import com.example.spacedeliveryman.datastore.DeliveryRemainingDataStore
 import com.example.spacedeliveryman.datastore.SpaceshipDataStore
 import kotlinx.coroutines.flow.Flow
@@ -32,8 +33,8 @@ class DataStoreRepository(private val spaceshipDataStore: SpaceshipDataStore, pr
         spaceshipDataStore.damageSpaceship(damage)
     }
 
-    suspend fun travelToCurrentStation(travelTime: Int, deliveredUGS: Int) {
-        remainingDataStore.travelToCurrentStation(deliveredUGS, travelTime)
+    suspend fun travelToCurrentStation(spaceStationEntity: SpaceStationEntity) {
+        remainingDataStore.travelToCurrentStation(spaceStationEntity.need, spaceStationEntity.distanceFromActiveStation.toInt())
     }
 
 }

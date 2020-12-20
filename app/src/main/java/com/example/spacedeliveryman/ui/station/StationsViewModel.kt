@@ -7,7 +7,6 @@ import com.example.spacedeliveryman.repositories.SpaceStationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.math.min
 
 class StationsViewModel(private val spaceStationRepository: SpaceStationRepository, private val dataStoreRepository: DataStoreRepository) : ViewModel() {
 
@@ -55,13 +54,6 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
 
     val stations: LiveData<List<SpaceStationEntity>> = _stations
 
-    fun completeDelivery(spaceStationEntity: SpaceStationEntity) {
-        viewModelScope.launch {
-            spaceStationRepository.completeStationDelivery(spaceStationEntity)
-            changeCurrentStation(spaceStationEntity)
-        }
-    }
-
     fun addStationToFavorite(stationEntity: SpaceStationEntity) {
         viewModelScope.launch {
             spaceStationRepository.addToFavorite(stationEntity)
@@ -70,10 +62,24 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
 
     fun changeCurrentStation(stationEntity: SpaceStationEntity) {
         viewModelScope.launch {
-            travelToCurrentStation(stationEntity)
+            val remainingUGS = ugs.value ?: 0
             val stationList = stations.value ?: emptyList()
-            val calculatedList = withContext(Dispatchers.Default) { spaceStationRepository.calculateDistanceFromCurrentStation(stationList, stationEntity) }
-            spaceStationRepository.updateDistanceFromCurrentStation(calculatedList)
+
+            val destination = if (remainingUGS >= stationEntity.need) {
+                dataStoreRepository.travelToCurrentStation(stationEntity)
+                stationEntity
+            } else {
+                stationList.find { it.name == "Dünya" }
+            }
+
+            destination?.let {
+
+                val calculatedList = withContext(Dispatchers.Default) {
+                    spaceStationRepository.travelToCurrentStation(stationList, it)
+                }
+
+                spaceStationRepository.updateDistanceFromCurrentStation(calculatedList)
+            }
         }
     }
 
@@ -86,11 +92,4 @@ class StationsViewModel(private val spaceStationRepository: SpaceStationReposito
             spaceStationRepository.saveSpaceStations(entityList)
         }
     }
-
-    private suspend fun travelToCurrentStation(stationEntity: SpaceStationEntity) {
-        val deliveredUGS = min(stationEntity.need, stationEntity.stock)
-        dataStoreRepository.travelToCurrentStation(stationEntity.distanceFromActiveStation.toInt(), deliveredUGS)
-        spaceStationRepository.travelToCurrentStation(stationEntity, deliveredUGS)
-    }
-
 }
