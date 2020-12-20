@@ -11,6 +11,10 @@ import com.google.android.material.slider.Slider
 
 class PropertySelectionView @JvmOverloads constructor(ctx: Context, attr: AttributeSet? = null) : LinearLayout(ctx, attr), SeekBar.OnSeekBarChangeListener {
 
+    companion object {
+        private const val MIN_VALUE = 1
+    }
+
     private val viewRootBinding: ComponentProperyLayoutBinding by dataBinding(R.layout.component_propery_layout)
 
     private var _propertyChangeListener: PropertyChangeListener? = null
@@ -23,6 +27,7 @@ class PropertySelectionView @JvmOverloads constructor(ctx: Context, attr: Attrib
         try {
             val title = ta.getString(R.styleable.PropertySelectionView_propertyTitle)
             viewRootBinding.propertyTitle.text = title
+            viewRootBinding.propertySlider.progress = MIN_VALUE
         } finally {
             ta.recycle()
         }
@@ -55,9 +60,10 @@ class PropertySelectionView @JvmOverloads constructor(ctx: Context, attr: Attrib
 
     //region Slider Listener
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        if (progress >= 1) {
-            _propertyChangeListener?.onPropertyChanged()
+        if (progress < MIN_VALUE) {
+            seekBar?.progress = MIN_VALUE
         }
+        _propertyChangeListener?.onPropertyChanged()
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {
